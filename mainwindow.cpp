@@ -40,5 +40,11 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_3_clicked()
 {
     timer->stop();
+    grid->clearCells();
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    timer->stop();
     grid->resetCells();
 }

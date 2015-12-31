@@ -14,11 +14,13 @@ class Grid: public QGraphicsScene
 {
 public:
     Grid(QGraphicsScene *scene,QLabel *popLabel,QLabel *genLabel);
-    QVector<Cell*> cells;
+
     void updateCells();
     void resetCells();
+    void clearCells();
 
-
+    QVector<Cell*> cells;
+    QVector<bool> seed;
     QLabel *popLabel;
     QLabel *genLabel;
     bool allCellsDead;
@@ -29,6 +31,8 @@ private:
     void updateLabels();
     void recountPopulation();
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void setSeed();
+
 
 };
 

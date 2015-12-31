@@ -10,6 +10,7 @@ Grid::Grid(QGraphicsScene *scene,QLabel *popLabel,QLabel *genLabel):QGraphicsSce
     for(int i =-350;i<350;i+=5){
         for(int q =-350;q<350;q+=5){
             cells.append(new Cell(q,i));
+            seed.append(false);
         }
     }
     for(int i=0;i<cells.size();i++){
@@ -22,7 +23,8 @@ Grid::Grid(QGraphicsScene *scene,QLabel *popLabel,QLabel *genLabel):QGraphicsSce
 void Grid::updateCells()
 {
     allCellsDead=true;
-    generation++;
+    if(population>0)
+        generation++;
     foreach(Cell *c, cells){
         c->determineNextState();
 
@@ -40,10 +42,23 @@ void Grid::updateCells()
 
 void Grid::resetCells()
 {
-    population=0;
     generation=0;
+
+    for(int i = 0;i<cells.size();i++){
+        cells.at(i)->isAlive=seed.at(i);
+    }
+    update();
+    updateLabels();
+
+}
+
+void Grid::clearCells()
+{
+    generation=0;
+    seed.clear();
     foreach(Cell *c, cells){
         c->isAlive=false;
+        seed.append(false);
     }
     updateLabels();
     update();
@@ -54,6 +69,7 @@ void Grid::resetCells()
 void Grid::updateLabels()
 {
     recountPopulation();
+
     popLabel->setText(QString("Population: %1").arg(population));
     genLabel->setText(QString("Generation: %1").arg(generation));
 }
@@ -72,6 +88,15 @@ void Grid::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     QGraphicsScene::mousePressEvent(event);
     updateLabels();
+    setSeed();
+}
+
+void Grid::setSeed()
+{
+    seed.clear();
+    foreach(Cell *c,cells){
+        seed.append(c->isAlive);
+    }
 }
 
 
