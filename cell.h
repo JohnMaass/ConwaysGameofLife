@@ -17,9 +17,11 @@ public:
 
     void determineNextState();
     void updateLifeState();
+    void enableDraw();
+    void disableDraw();
     int numNeighborsAlive();
 
-    bool isAlive, aliveNextState;
+    bool isAlive, aliveNextState,canDraw;
     double x,y;
     QVector<Cell*> neighbors;
 

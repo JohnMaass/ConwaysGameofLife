@@ -3,6 +3,7 @@
 Grid::Grid(QGraphicsScene *scene,QLabel *popLabel,QLabel *genLabel):QGraphicsScene(scene)
 {
     allCellsDead=false;
+    saveSeed=true;
     generation=0;
     population=0;
     this->popLabel=popLabel;
@@ -64,6 +65,22 @@ void Grid::clearCells()
     update();
 }
 
+void Grid::enableDraw()
+{
+    foreach(Cell *c, cells){
+        c->enableDraw();
+    }
+    saveSeed=true;
+}
+
+void Grid::disableDraw()
+{
+    foreach(Cell *c, cells){
+        c->disableDraw();
+    }
+    saveSeed=false;
+}
+
 
 
 void Grid::updateLabels()
@@ -87,8 +104,10 @@ void Grid::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 
     QGraphicsScene::mousePressEvent(event);
-    updateLabels();
-    setSeed();
+    if(saveSeed){
+        updateLabels();
+        setSeed();
+    }
 }
 
 void Grid::setSeed()

@@ -18,12 +18,14 @@ public:
     void updateCells();
     void resetCells();
     void clearCells();
+    void enableDraw();
+    void disableDraw();
 
     QVector<Cell*> cells;
     QVector<bool> seed;
     QLabel *popLabel;
     QLabel *genLabel;
-    bool allCellsDead;
+    bool allCellsDead,saveSeed;
     int generation;
     int population;
 

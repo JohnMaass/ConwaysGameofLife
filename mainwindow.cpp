@@ -27,7 +27,7 @@ void MainWindow::updateCells()
 
 void MainWindow::on_pushButton_clicked()
 {
-
+    grid->disableDraw();
     timer->start(250);
 }
 
@@ -39,12 +39,14 @@ void MainWindow::on_pushButton_2_clicked()
 }
 void MainWindow::on_pushButton_3_clicked()
 {
+    grid->enableDraw();
     timer->stop();
     grid->clearCells();
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
+    grid->enableDraw();
     timer->stop();
     grid->resetCells();
 }

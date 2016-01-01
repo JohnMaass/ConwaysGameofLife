@@ -4,6 +4,7 @@ Cell::Cell(double x, double y)
 {
     isAlive=false;
     aliveNextState=false;
+    canDraw=true;
     this->x=x;
     this->y=y;
 }
@@ -72,6 +73,16 @@ void Cell::updateLifeState()
     //update();
 }
 
+void Cell::enableDraw()
+{
+    canDraw=true;
+}
+
+void Cell::disableDraw()
+{
+    canDraw=false;
+}
+
 int Cell::numNeighborsAlive()
 {
     int numAlive=0;
@@ -99,13 +110,10 @@ void Cell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-//    qDebug()<<neighbors.size();
-    isAlive=!isAlive;
-//    foreach(Cell *c, neighbors){
-//        c->isAlive=!c->isAlive;
-//        c->update();
-//    }
-    update();
+    if(canDraw){
+        isAlive=!isAlive;
+        update();
+    }
     QGraphicsItem::mousePressEvent(event);
 }
 
